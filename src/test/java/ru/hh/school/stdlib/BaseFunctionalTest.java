@@ -11,7 +11,7 @@ public class BaseFunctionalTest {
     synchronized (BaseFunctionalTest.class) {
       try {
         if (server == null) {
-          server = new Server(new InetSocketAddress("127.0.0.1", 0));
+          server = new Server(new InetSocketAddress("127.0.0.1", 1231));
           new Thread(new Runnable() {
             public void run() {
               try {
