@@ -24,6 +24,12 @@ public class Launcher {
     }
     InetSocketAddress addr = InetSocketAddress.createUnresolved(host, port);
 
-    new Server(addr).run();
+    try {
+      new Server(addr).run();
+    }
+    catch (UnsupportedOperationException e) {
+      System.err.println("Unsupported operation");
+      System.exit(1);
+    }
   }
 }
