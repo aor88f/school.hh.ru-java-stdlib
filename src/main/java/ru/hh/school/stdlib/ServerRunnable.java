@@ -69,15 +69,21 @@ public class ServerRunnable implements Runnable
       }
       result.value = -1;
     }
+
+    try {
+      in.close();
+      out.close();
+    } catch (Exception e) {
+    }
   }
 
   String acceptText() throws IOException {
-    BufferedReader in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
+    in = new BufferedReader(new InputStreamReader(cs.getInputStream()));
     return in.readLine();
   }
 
   void sendText(String text) throws IOException {
-    Writer out = new PrintWriter(cs.getOutputStream());
+    out = new PrintWriter(cs.getOutputStream());
     out.append(text).flush();
   }
 
@@ -115,4 +121,6 @@ public class ServerRunnable implements Runnable
   protected Socket cs = null;
   protected Integer2 sleep = null;
   protected Integer2 result = null;
+  protected Writer out = null;
+  protected BufferedReader in = null;
 }
