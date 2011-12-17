@@ -17,22 +17,12 @@ public class Server {
 
   public void run() throws IOException {
     ServerSocket ss = new ServerSocket(getPort());
-    for (;;) {
-      Socket cs = null;
-
-      if (result.value != 0) {
-        if (cs != null) {
-          cs.close();
-        }
-        break;
-      }
-      else {
-        cs = ss.accept();
-        synchronized (subst) {
-          synchronized (sleep) {
-            synchronized (result) {
-              new Thread(new ServerRunnable(cs, subst, sleep, result)).start();
-            }
+    while (result.value == 0) {
+      Socket cs = ss.accept();
+      synchronized (subst) {
+        synchronized (sleep) {
+          synchronized (result) {
+            new Thread(new ServerRunnable(cs, subst, sleep, result)).start();
           }
         }
       }
