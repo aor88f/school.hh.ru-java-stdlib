@@ -20,10 +20,6 @@ public class Server {
     for (;;) {
       Socket cs = null;
 
-      while (result.value == 0 && cs == null) {
-        cs = ss.accept();
-      }
-
       if (result.value != 0) {
         if (cs != null) {
           cs.close();
@@ -31,6 +27,7 @@ public class Server {
         break;
       }
       else {
+        cs = ss.accept();
         synchronized (subst) {
           synchronized (sleep) {
             synchronized (result) {
